@@ -6,11 +6,7 @@ import java.sql.SQLException;
 
 public class DataBaseConfig {
 
-    static String url = "jdbc:mysql://localhost:3306/bookmymovies";
-    static String username = "root";
-    static String password = "Mohak3@sql";
-
-    public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(url,username, password);
-    }
+//    public static Connection getConnection() throws SQLException {
+//        return DriverManager.getConnection(url,username, password);
+//    }
 }
