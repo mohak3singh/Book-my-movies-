@@ -1,0 +1,106 @@
+create database Bookmymovies;
+use Bookmymovies;
+
+create table user(
+	user_id int primary key auto_increment,
+    name varchar(30),
+    email varchar(30),
+    phone varchar(30)
+);
+
+create table movies(
+	movie_id int primary key auto_increment,
+    title varchar(30),
+    genre varchar(30),
+    lang varchar(30),
+    duration int
+);
+
+
+create table theaters(
+	theater_id int primary key auto_increment,
+    name varchar(30),
+    city varchar(30)
+);
+
+create table shows(
+	show_id int primary key auto_increment,
+    movie_id int,
+    theater_id int,
+    timing varchar(30),
+    available_seats int,
+    foreign key (movie_id) references movies(movie_id),
+    foreign key (theater_id) references theaters(theater_id)
+);
+
+create table seat(
+	seat_id int primary key auto_increment,
+    show_id int,
+    seat_number varchar(10),
+    is_booked boolean default false,
+    foreign key (show_id) references shows(show_id)
+);
+
+create table bookings(
+	booking_id int primary key auto_increment,
+    user_id int,
+    show_id int,
+    seats_booked varchar(30),
+    total_price decimal(10,2)
+);
+
+insert into user(name, email, phone) values
+("mohak","mohak@gmail.com", "834753329"),
+("ayan","ayan@gmail.com", "74583248952"),
+("rohan","rohan@gmail.com", "458327432"),
+("amit","amit@gmail.com", "845329419324");
+
+select * from user;
+    
+insert into movies(title, genre, lang, duration) values
+('Chaava','history','hindi', 150),
+('Avengers','Action','English', 167),
+('IronMan','Action','English', 180),
+('Pushpa','Thriller','Telgu', 170),
+('KGF','Action','hindi', 175);
+
+select * from movies;
+
+insert into theaters(name,city) values
+('PVR','Delhi'),
+('INOX','Agra'),
+('IMAX','Pune'),
+('Cinepolis','Mumbai'),
+('Meeraj','Banglore');
+
+select * from theaters;
+
+insert into shows(movie_id, theater_id, timing, available_seats) values
+(1, 1, '10:00 AM', 40),
+(1, 2, '2:00 PM', 35),
+(2, 3, '7:00 PM', 60),
+(3, 4, '9:00 PM', 30),
+(4, 5, '5:30 PM', 50),
+(5, 2, '8:00 PM', 45);
+
+select * from shows;
+
+
+INSERT INTO seat(show_id, seat_number, is_booked) VALUES
+(19, 'A1', FALSE),(19, 'A2', FALSE),(19, 'A3', FALSE),(19, 'A4', FALSE),(19, 'A5', FALSE),
+(20, 'B1', FALSE),(20, 'B2', FALSE),(20, 'B3', FALSE),(20, 'B4', FALSE),(20, 'B5', FALSE),
+(21, 'C1', FALSE),(21, 'C2', FALSE),(21, 'C3', FALSE),(21, 'C4', FALSE),(21, 'C5', FALSE),
+(22, 'D1', FALSE),(22, 'D2', FALSE),(22, 'D3', FALSE),(22, 'D4', FALSE),(22, 'D5', FALSE),
+(23, 'E1', FALSE),(23, 'E2', FALSE),(23, 'E3', FALSE),(23, 'E4', FALSE),(23, 'E5', FALSE);
+
+select * from seat;
+
+
+insert into bookings(user_id, show_id, seats_booked, total_price) values
+(1,19, 'A1,A2', 400);
+
+update seat set is_booked=true where show_id = 19 and seat_number IN ('A1','A2');
+
+select * from bookings;
+
+
